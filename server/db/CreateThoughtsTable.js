@@ -7,7 +7,7 @@ AWS.config.update({
   endpoint: "http://localhost:8000"
 });
 
-const dynamodb = new AWS.DynamoDB({apiVersion: '2012-08-10'});
+const dynamodb = new AWS.DynamoDB({apiVersion: '2012-08-10'}); //By specifying the api version we ensure it's compatible with the commands we want to use.
 
 const params = {
     TableName : "Thoughts",

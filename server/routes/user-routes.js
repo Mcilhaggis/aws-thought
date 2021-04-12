@@ -15,6 +15,7 @@ router.get('/users', (req, res) => {
   const params = {
     TableName: table
   };
+  //scan all items in a table
   dynamodb.scan(params, (err, data) => {
     if (err) {
       res.status(500).json(err); // an error occurred
@@ -29,6 +30,10 @@ router.get('/users/:username', (req, res) => {
   console.log(`Querying for thought(s) from ${req.params.username}.`);
   const params = {
     TableName: table,
+    // Specifies the search criteria 
+    //similar to the where clause
+    //We can use comparison operators here <, =, between, more than or equal to
+    //#un refers t othe attribute name 'username'
     KeyConditionExpression: "#un = :user",
     ExpressionAttributeNames: {
       "#un": "username",
@@ -50,7 +55,7 @@ router.get('/users/:username', (req, res) => {
       res.json(data.Items)
     }
   });
-});
+}); // closes the route for router.get(users/:username)
 
 // Create new user
 router.post('/users', (req, res) => {
