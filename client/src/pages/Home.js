@@ -5,6 +5,7 @@ import ThoughtForm from '../components/ThoughtForm';
 const Home = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [thoughts, setThoughts] = useState([]);
+  console.log(thoughts)
 
   // const loggedIn = Auth.loggedIn();
 
@@ -14,7 +15,8 @@ const Home = () => {
       const data = await res.json();
       // sort the array by createdAt property ordered by descending values
       const orderData = data.sort((a, b) => (a.createdAt < b.createdAt) ? 1 : -1);
-      setThoughts(orderData);
+      setThoughts([...orderData]);  
+      // setThoughts(orderData);
       setIsLoaded(true);
     }
     fetchData();
