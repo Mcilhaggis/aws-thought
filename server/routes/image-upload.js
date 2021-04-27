@@ -24,19 +24,33 @@ const s3 = new AWS.S3({
   })
 
 
+  // router.post('/image-upload', upload, (req, res) => {
+  //   // console.log("post('/api/image-upload'", req.file);
+  //   // we retrieve the image file object, req.file, from the route using multe
+  //   const params = paramsConfig(req.file);
+  //   // use the s3 service interface object we instantiated previously with the aws-sdk package to call the upload() method
+  //   s3.upload(params, (err, data) => {
+  //     if(err) {
+  //       console.log(err); 
+  //       res.status(500).send(err);
+  //     }
+  //     // In the last statement of this route, we send the data retrieved from S3 back to the client.
+  //     // The data will contain the image file's metadata, including the URL, bucket name, file name, and more
+  //     // console.log(res.json(data))
+  //     res.json(data);
+  //   });
+  // });
+  
+  // module.exports = router;
+
   router.post('/image-upload', upload, (req, res) => {
     console.log("post('/api/image-upload'", req.file);
-    // we retrieve the image file object, req.file, from the route using multe
     const params = paramsConfig(req.file);
-    // use the s3 service interface object we instantiated previously with the aws-sdk package to call the upload() method
     s3.upload(params, (err, data) => {
       if(err) {
         console.log(err); 
         res.status(500).send(err);
       }
-      // In the last statement of this route, we send the data retrieved from S3 back to the client.
-      // The data will contain the image file's metadata, including the URL, bucket name, file name, and more
-      console.log(res.json(data))
       res.json(data);
     });
   });
