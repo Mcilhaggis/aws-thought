@@ -32,12 +32,14 @@ router.get('/users/:username', (req, res) => {
     ExpressionAttributeNames: {
       "#un": "username",
       "#ca": "createdAt",
-      "#th": "thought"
+      "#th": "thought", 
+      "#img": "image"
     },
     ExpressionAttributeValues: {
       ":user": req.params.username
     },
-    ProjectionExpression: "#th, #ca"
+    ProjectionExpression: "#un, #th, #ca, #img", //adding the image to the db on the end here
+    ScanIndexForward: false //false makes the order descending and true is the default
   };
 
   dynamodb.query(params, (err, data) => {
@@ -57,7 +59,8 @@ router.post('/users', (req, res) => {
     Item: {
       "username": req.body.username,
       "createdAt": Date.now(),
-      "thought": req.body.thought
+      "thought": req.body.thought,
+      "image": req.body.image
     }
   };
   dynamodb.put(params, (err, data) => {
@@ -65,7 +68,7 @@ router.post('/users', (req, res) => {
       console.error("Unable to add item. Error JSON:", JSON.stringify(err, null, 2));
       res.status(500).json(err); // an error occurred
     } else {
-      console.log("Added item:", JSON.stringify(data));
+      res.json({"Added item:": JSON.stringify(data)});
       res.json({ "Added": JSON.stringify(data, null, 2) });
     }
   });

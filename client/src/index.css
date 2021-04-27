@@ -18,6 +18,11 @@
   box-sizing: border-box;
 }
 
+.thought-image{
+height: 200px;
+width: auto;
+}
+
 html,
 body {
   min-height: 100%;
